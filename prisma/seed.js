@@ -1,87 +1,124 @@
 import { PrismaClient } from '@prisma/client';
-import 'dotenv/config';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Contact info (single row)
+  console.log('Seeding database...');
+
+  // Contact info
   await prisma.contactInfo.upsert({
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
-      officeName: 'Kantor Pusat',
-      address1: 'Menara BCA, Grand Indonesia',
-      address2: 'Jl. MH Thamrin No. 1',
-      cityPostal: 'Jakarta 10310',
-      locationLabel: 'Lokasi BCA Lainnya',
-      locationUrl: '#',
+      officeName: 'BCA Main Office',
+      address1: 'Jl. Jend. Sudirman No. 1',
+      address2: 'Kebayoran Baru',
+      cityPostal: 'Jakarta 12190',
+      locationLabel: 'Google Maps',
+      locationUrl: 'https://maps.google.com/?q=BCA',
     },
   });
 
   // Contact methods
-  await prisma.contactMethod.deleteMany();
-  await prisma.contactMethod.createMany({
-    data: [
-      { type: 'PHONE', label: 'Halo BCA', value: '1500888' },
-      { type: 'EMAIL', label: 'Email', value: 'halobca@bca.co.id' },
-      { type: 'WHATSAPP', label: 'WhatsApp', value: '62811500998' },
-    ],
-  });
-
-  // Social links
-  await prisma.socialLink.deleteMany();
-  await prisma.socialLink.createMany({
-    data: [
-      { label: 'Goodlife BCA', url: '#', icon: 'globe', order: 1 },
-      { label: 'Solusi BCA', url: '#', icon: 'globe', order: 2 },
-      { label: '@goodlifebca', url: '#', icon: 'at', order: 3 },
-      { label: '@halobca', url: '#', icon: 'at', order: 4 },
-      { label: '@BankBCA', url: '#', icon: 'at', order: 5 },
-    ],
-  });
+  const contactMethods = [
+    { type: 'PHONE', label: 'Halo BCA', value: '1500888' },
+    { type: 'EMAIL', label: 'Support', value: 'support@bca.co.id' },
+    { type: 'WHATSAPP', label: 'WhatsApp', value: '+628123456789' },
+  ];
+  for (const cm of contactMethods) {
+    await prisma.contactMethod.create({ data: cm });
+  }
 
   // Quick links
-  await prisma.quickLink.deleteMany();
-  await prisma.quickLink.createMany({
-    data: [
-      { label: 'Individu', url: '#', order: 1 },
-      { label: 'Bisnis', url: '#', order: 2 },
-      { label: 'Tentang BCA', url: '#', order: 3 },
-      { label: 'Karir', url: '#', order: 4 },
-      { label: 'Promo', url: '#', order: 5 },
-      { label: 'Lokasi', url: '#', order: 6 },
-    ],
-  });
+  const quickLinks = [
+    { label: 'Kartu Kredit', url: '/kartu-kredit', order: 1 },
+    { label: 'KPR', url: '/kpr', order: 2 },
+    { label: 'Deposito', url: '/deposito', order: 3 },
+  ];
+  for (const q of quickLinks) {
+    await prisma.quickLink.create({ data: q });
+  }
+
+  // Social links
+  const socialLinks = [
+    { label: 'Instagram', handle: 'bankbca', url: 'https://instagram.com/bankbca', icon: 'instagram', order: 1 },
+    { label: 'Twitter', handle: 'bankbca', url: 'https://twitter.com/bankbca', icon: 'twitter', order: 2 },
+  ];
+  for (const s of socialLinks) {
+    await prisma.socialLink.create({ data: s });
+  }
 
   // Policy links
-  await prisma.policyLink.deleteMany();
-  await prisma.policyLink.createMany({
-    data: [
-      { label: 'SBDK', url: '#', order: 1 },
-      { label: 'Kebijakan', url: '#', order: 2 },
-      { label: 'Syarat dan Ketentuan', url: '#', order: 3 },
-    ],
+  const policyLinks = [
+    { label: 'Syarat & Ketentuan', url: '/terms', order: 1 },
+    { label: 'Kebijakan Privasi', url: '/privacy', order: 2 },
+  ];
+  for (const p of policyLinks) {
+    await prisma.policyLink.create({ data: p });
+  }
+
+  // News
+  const now = new Date();
+  const newsItems = [
+    { title: 'BCA Meluncurkan Fitur Baru', date: now, category: 'Pengumuman', imageUrl: null, url: '/news/1', featured: true },
+    { title: 'Promo Akhir Tahun', date: new Date(now.getTime() - 86400000), category: 'Promo', imageUrl: null, url: '/news/2', featured: false },
+  ];
+  for (const n of newsItems) {
+    await prisma.news.create({ data: n });
+  }
+
+  // Promos
+  const promos = [
+    {
+      title: 'Diskon Belanja 20%',
+      imageUrl: 'https://picsum.photos/seed/promo/800/400',
+      periodFrom: new Date(now.getTime() - 7 * 86400000),
+      periodTo: new Date(now.getTime() + 7 * 86400000),
+      url: '/promo/1',
+      featured: true,
+    },
+  ];
+  for (const pr of promos) {
+    await prisma.promo.create({ data: pr });
+  }
+
+  // Carousel slides
+  const slides = [
+    { title: 'Selamat Datang di BCA', imageUrl: 'https://picsum.photos/seed/slide1/1200/480', href: '/', order: 1 },
+    { title: 'Kemudahan Transaksi', imageUrl: 'https://picsum.photos/seed/slide2/1200/480', href: '/produk', order: 2 },
+  ];
+  for (const sl of slides) {
+    await prisma.carouselSlide.create({ data: sl });
+  }
+
+  // Currency rates
+  const rates = [
+    { code: 'USD', buy: 15800.5, sell: 16020.75, flagSrc: '/assets/flags/us.svg' },
+    { code: 'EUR', buy: 16850.9, sell: 17010.35, flagSrc: '/assets/flags/eu.svg' },
+    { code: 'JPY', buy: 105.2, sell: 106.1, flagSrc: '/assets/flags/jp.svg' },
+  ];
+  for (const r of rates) {
+    await prisma.currencyRate.create({ data: r });
+  }
+
+  // Admin user
+  const adminEmail = 'admin@example.com';
+  const adminPassword = await bcrypt.hash('admin123', 10);
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {},
+    create: { email: adminEmail, name: 'Admin', passwordHash: adminPassword, role: 'admin' },
   });
 
-  // News items (dummy)
-  await prisma.news.deleteMany();
-  await prisma.news.createMany({
-    data: [
-      { title: 'Telah Hadir, Batavia USD Money Market', date: new Date('2025-11-07'), category: 'Berita', imageUrl: 'https://www.bca.co.id/-/media/Feature/Card/Main-Banner-Card/Personal/20251104-KPR-Berjenjang-Nov-2025.png', url: '#', featured: true },
-      { title: 'Pemberitahuan Penyesuaian Limit Nominal Transaksi', date: new Date('2025-10-21'), category: 'Berita', imageUrl: 'https://www.bca.co.id/-/media/Feature/Card/Main-Banner-Card/Personal/20251104-KPR-Berjenjang-Nov-2025.png', url: '#', featured: false },
-      { title: 'BCA Raih Predikat "Marketer of the Year"', date: new Date('2025-10-22'), category: 'Berita', imageUrl: 'https://www.bca.co.id/-/media/Feature/Card/Main-Banner-Card/Personal/20251104-KPR-Berjenjang-Nov-2025.png', url: '#', featured: false }
-    ]
-  });
+  console.log('Seeding complete.');
 }
 
 main()
-  .then(async () => {
-    await prisma.$disconnect();
-    console.log('Seed completed');
-  })
-  .catch(async (e) => {
+  .catch((e) => {
     console.error(e);
-    await prisma.$disconnect();
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });

@@ -69,3 +69,43 @@ model News {
   url       String?
   featured  Boolean  @default(false)
 }
+
+// Auth & additional homepage content
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("user") // e.g. 'admin', 'editor', 'user'
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Promo {
+  id         Int      @id @default(autoincrement())
+  title      String
+  imageUrl   String
+  periodFrom DateTime
+  periodTo   DateTime
+  url        String?
+  featured   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model CarouselSlide {
+  id        Int     @id @default(autoincrement())
+  title     String?
+  imageUrl  String
+  href      String?
+  order     Int     @default(0)
+  createdAt DateTime @default(now())
+}
+
+model CurrencyRate {
+  id        Int      @id @default(autoincrement())
+  code      String
+  buy       Float
+  sell      Float
+  flagSrc   String?
+  updatedAt DateTime  @default(now())
+}
