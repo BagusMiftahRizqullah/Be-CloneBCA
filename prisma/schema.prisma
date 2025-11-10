@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Footer and content models
+model ContactInfo {
+  id            Int     @id @default(1)
+  officeName    String
+  address1      String
+  address2      String?
+  cityPostal    String
+  locationLabel String
+  locationUrl   String?
+}
+
+enum ContactType {
+  PHONE
+  EMAIL
+  WHATSAPP
+}
+
+model ContactMethod {
+  id    Int         @id @default(autoincrement())
+  type  ContactType
+  label String
+  value String
+}
+
+model SocialLink {
+  id     Int    @id @default(autoincrement())
+  label  String
+  handle String?
+  url    String
+  icon   String?
+  order  Int    @default(0)
+}
+
+model QuickLink {
+  id    Int    @id @default(autoincrement())
+  label String
+  url   String
+  order Int    @default(0)
+}
+
+model PolicyLink {
+  id    Int    @id @default(autoincrement())
+  label String
+  url   String
+  order Int    @default(0)
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  title     String
+  date      DateTime
+  category  String
+  imageUrl  String?
+  url       String?
+  featured  Boolean  @default(false)
+}
