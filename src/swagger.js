@@ -1,6 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3002;
 const serverUrl = `http://localhost:${PORT}`;
 
 const options = {

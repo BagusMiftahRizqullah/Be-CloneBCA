@@ -24,7 +24,7 @@ import {
 const app = express();
 const prisma = new PrismaClient();
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3002;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:4200';
 
 app.use(cors({ origin: CORS_ORIGIN }));
