@@ -1,3 +1,4 @@
+/*
 # BCA Backend (API)
 
 Backend ini menyediakan API untuk konten homepage (promo, news, rates, carousel) yang dikonsumsi oleh aplikasi frontend (Angular).
@@ -20,7 +21,7 @@ Backend ini menyediakan API untuk konten homepage (promo, news, rates, carousel)
 2. Konfigurasi environment variable (contoh):
    Buat file `.env` di root `bca-backend/` dengan isi minimal:
    ```env
-   PORT=4000
+   PORT=3002
    DATABASE_URL="mysql://user:pass@localhost:3306/bca_db"
    ```
 3. Jalankan migrasi & seed (opsional) menggunakan Prisma:
@@ -32,7 +33,7 @@ Backend ini menyediakan API untuk konten homepage (promo, news, rates, carousel)
    ```bash
    npm run dev
    ```
-   Server akan aktif di `http://localhost:4000/` dan dokumentasi API di `http://localhost:4000/api/docs`.
+   Server akan aktif di `http://localhost:3002/` dan dokumentasi API di `http://localhost:3002/api/docs`.
 
 ## Endpoints Utama
 - `GET /api/promos` — daftar promo
@@ -42,6 +43,7 @@ Backend ini menyediakan API untuk konten homepage (promo, news, rates, carousel)
 
 ## Struktur Direktori
 ```
+*/
 bca-backend/
 ├── prisma/                # skema dan migrasi Prisma
 │   ├── migrations/
