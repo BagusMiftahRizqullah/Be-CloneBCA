@@ -1,0 +1,10 @@
+import express from 'express';
+import { getCarousel, postCarousel, putCarousel, removeCarousel } from '../controllers/carousel.controller.js';
+import { authRequired, adminRequired } from '../middlewares/auth.js';
+import { validate, carouselCreateValidator } from '../validators/index.js';
+const router = express.Router();
+router.get('/', getCarousel);
+router.post('/', authRequired, adminRequired, validate(carouselCreateValidator), postCarousel);
+router.put('/:id', authRequired, adminRequired, validate(carouselCreateValidator), putCarousel);
+router.delete('/:id', authRequired, adminRequired, removeCarousel);
+export default router;

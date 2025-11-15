@@ -1,0 +1,13 @@
+import express from 'express';
+import { getPromos, postPromo, putPromo, removePromo } from '../controllers/promos.controller.js';
+import { authRequired, adminRequired } from '../middlewares/auth.js';
+import { validate, promoCreateValidator } from '../validators/index.js';
+
+const router = express.Router();
+
+router.get('/', getPromos);
+router.post('/', authRequired, adminRequired, validate(promoCreateValidator), postPromo);
+router.put('/:id', authRequired, adminRequired, validate(promoCreateValidator), putPromo);
+router.delete('/:id', authRequired, adminRequired, removePromo);
+
+export default router;
