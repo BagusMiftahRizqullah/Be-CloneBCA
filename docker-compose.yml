@@ -28,7 +28,7 @@ services:
       PORT: 3002
       DATABASE_URL: mysql://root:localdev@mysql:3306/bca_db
       JWT_SECRET: changeme-dev-secret
-      CORS_ORIGIN: http://144.202.24.24:3000,http://localhost:3000
+      CORS_ORIGIN: "*"
     ports:
       - "3002:3002"
     depends_on:
