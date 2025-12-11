@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg as unknown as { PrismaClient: new () => any };
 
 /**
  * Shared Prisma client instance used across service layer.
