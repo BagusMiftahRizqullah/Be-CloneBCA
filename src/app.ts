@@ -18,9 +18,23 @@ import searchRouter from './routes/search.routes.js';
 export const app = express();
 app.set('trust proxy', 1);
 
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:4200';
-
-app.use(cors({ origin: CORS_ORIGIN }));
+const rawOrigins = process.env.CORS_ORIGIN || 'http://localhost:4200,http://localhost:3000,http://144.202.24.24:3000';
+const allowAll = rawOrigins.trim() === '*';
+const allowedOrigins = rawOrigins.split(',').map((o) => o.trim()).filter(Boolean);
+app.use(
+  cors({
+    origin: allowAll
+      ? true
+      : (origin, callback) => {
+          if (!origin) return callback(null, true);
+          if (allowedOrigins.includes(origin)) return callback(null, true);
+          return callback(new Error('Not allowed by CORS'));
+        },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 app.use(helmet());
 app.use(express.json());
 app.use(morgan('combined', { stream: morganStream }));
