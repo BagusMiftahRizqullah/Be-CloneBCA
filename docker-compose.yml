@@ -16,10 +16,9 @@ services:
       retries: 20
 
   backend:
-    image: node:18
-    working_dir: /app
-    volumes:
-      - ./:/app
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       PORT: 3002
       DATABASE_URL: mysql://root:localdev@mysql:3306/bca_db
@@ -28,20 +27,17 @@ services:
     ports:
       - '3002:3002'
     depends_on:
-      - mysql
-    command: sh -c "npm install && npx prisma generate && npx prisma migrate deploy && npm run dev"
+      mysql:
+        condition: service_healthy
+        required: true
     restart: unless-stopped
 
   frontend:
-    image: node:18
-    working_dir: /app
-    volumes:
-      - ../FE-CloneBCA:/app
-    environment:
-      CHOKIDAR_USEPOLLING: 'true'
+    build:
+      context: ../FE-CloneBCA
+      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - '3000:80'
     depends_on:
       - backend
-    command: sh -c "npm install && npx ng serve --port 3000 --host 0.0.0.0"
     restart: unless-stopped
