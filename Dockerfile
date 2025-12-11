@@ -6,6 +6,7 @@ RUN npm ci --ignore-scripts
 COPY . .
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
+RUN npx prisma generate
 RUN npm run build
 
 FROM node:18-alpine AS runner
