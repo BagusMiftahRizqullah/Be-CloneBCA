@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DATABASE_URL: mysql://root:localdev@mysql:3306/bca_db
     environment:
       PORT: 3002
       DATABASE_URL: mysql://root:localdev@mysql:3306/bca_db
