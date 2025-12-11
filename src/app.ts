@@ -18,7 +18,19 @@ import searchRouter from './routes/search.routes.js';
 export const app = express();
 app.set('trust proxy', 1);
 
-const rawOrigins = process.env.CORS_ORIGIN || 'http://localhost:4200,http://localhost:3000,http://144.202.24.24:3000';
+app.use(helmet());
+app.use(express.json());
+app.use(morgan('combined', { stream: morganStream }));
+ 
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { swaggerOptions: { persistAuthorization: true, url: '/api/docs.json' } }));
+app.get('/api/docs.json', (req, res) => {
+  const proto = (req.headers['x-forwarded-proto'] as string) || req.protocol;
+  const host = req.get('host');
+  const serverUrl = `${proto}://${host}`;
+  res.json({ ...swaggerSpec, servers: [{ url: serverUrl }] });
+});
+
+const rawOrigins = process.env.CORS_ORIGIN || 'http://localhost:4200,http://localhost:3000,http://localhost:3002,http://144.202.24.24:3000,http://144.202.24.24:3002';
 const allowAll = rawOrigins.trim() === '*';
 const allowedOrigins = rawOrigins.split(',').map((o) => o.trim()).filter(Boolean);
 app.use(
@@ -33,19 +45,9 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 204,
   })
 );
-app.use(helmet());
-app.use(express.json());
-app.use(morgan('combined', { stream: morganStream }));
- 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { swaggerOptions: { persistAuthorization: true, url: '/api/docs.json' } }));
-app.get('/api/docs.json', (req, res) => {
-  const proto = (req.headers['x-forwarded-proto'] as string) || req.protocol;
-  const host = req.get('host');
-  const serverUrl = `${proto}://${host}`;
-  res.json({ ...swaggerSpec, servers: [{ url: serverUrl }] });
-});
 
  
 app.get('/api/health', (req, res) => {
