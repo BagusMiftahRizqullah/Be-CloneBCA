@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: localdev
+      MYSQL_DATABASE: bca_db
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      PORT: 3002
+      DATABASE_URL: mysql://root:localdev@mysql:3306/bca_db
+      JWT_SECRET: changeme-dev-secret
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - '3002:3002'
+    depends_on:
+      - mysql
+    command: sh -c "npm install && npx prisma generate && npx prisma migrate deploy && npm run dev"
+    restart: unless-stopped
+
+  frontend:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ../FE-CloneBCA:/app
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    command: sh -c "npm install && npx ng serve --port 3000 --host 0.0.0.0"
+    restart: unless-stopped

@@ -1,0 +1,96 @@
+2025-12-11T09:20:51.419Z error: PrismaClientInitializationError: 
+Invalid `prisma.promo.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getPromos (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/promos.controller.ts:8:20)
+2025-12-11T09:20:51.421Z error: PrismaClientInitializationError: 
+Invalid `prisma.news.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getNews (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/news.controller.ts:8:19)
+2025-12-11T09:20:51.423Z error: PrismaClientInitializationError: 
+Invalid `prisma.carouselSlide.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getCarousel (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/carousel.controller.ts:8:20)
+2025-12-11T09:20:51.426Z error: PrismaClientInitializationError: 
+Invalid `prisma.currencyRate.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getRates (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/rates.controller.ts:8:19)
+2025-12-11T09:20:58.104Z error: PrismaClientInitializationError: 
+Invalid `prisma.promo.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getPromos (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/promos.controller.ts:8:20)
+2025-12-11T09:20:58.105Z error: PrismaClientInitializationError: 
+Invalid `prisma.news.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getNews (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/news.controller.ts:8:19)
+2025-12-11T09:20:58.106Z error: PrismaClientInitializationError: 
+Invalid `prisma.carouselSlide.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getCarousel (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/carousel.controller.ts:8:20)
+2025-12-11T09:20:58.106Z error: PrismaClientInitializationError: 
+Invalid `prisma.currencyRate.findMany()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+    at ei.handleRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at a (/Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at getRates (file:///Users/bagusmiftahrizqullah/Documents/Be-CloneBCA/src/controllers/rates.controller.ts:8:19)
