@@ -17,4 +17,4 @@ RUN npm ci --omit=dev --ignore-scripts
 COPY --from=builder /app/dist ./dist
 ENV PORT=3002
 EXPOSE 3002
-CMD sh -c "npx prisma migrate deploy && node dist/server.js"
+CMD sh -c "npx prisma generate && npx prisma migrate deploy && node dist/server.js"
