@@ -16,6 +16,7 @@ import ratesRouter from './routes/rates.routes.js';
 import searchRouter from './routes/search.routes.js';
 
 export const app = express();
+app.set('trust proxy', 1);
 
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:4200';
 
@@ -24,8 +25,13 @@ app.use(helmet());
 app.use(express.json());
 app.use(morgan('combined', { stream: morganStream }));
  
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { swaggerOptions: { persistAuthorization: true } }));
-app.get('/api/docs.json', (req, res) => res.json(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { swaggerOptions: { persistAuthorization: true, url: '/api/docs.json' } }));
+app.get('/api/docs.json', (req, res) => {
+  const proto = (req.headers['x-forwarded-proto'] as string) || req.protocol;
+  const host = req.get('host');
+  const serverUrl = `${proto}://${host}`;
+  res.json({ ...swaggerSpec, servers: [{ url: serverUrl }] });
+});
 
  
 app.get('/api/health', (req, res) => {
